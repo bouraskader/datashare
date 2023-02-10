@@ -1,0 +1,21 @@
+@import '../../../shared/variable.scss';
+.location{
+    display: flex;
+    justify-content: space-between;
+
+    .icon{
+        display: flex;
+        justify-content: center;
+
+        clr-icon{
+            height: 70px !important;
+            width: 70px !important;
+            color: $color-primary-blue;
+        }
+    }
+
+    .card-footer{
+        display: flex;
+        justify-content: flex-end;
+    }
+}

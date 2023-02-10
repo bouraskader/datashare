@@ -1,0 +1,114 @@
+<div class="clr-col-12">
+  <a routerLink="/home"
+    ><button class="btn btn-primary btn-sm"><< Back</button></a
+  >
+</div>
+
+<div class="clr-col-12">
+  <clr-datagrid>
+    <clr-dg-column>Created by</clr-dg-column>
+    <clr-dg-column>Start Date</clr-dg-column>
+    <clr-dg-column>End Date</clr-dg-column>
+    <clr-dg-column>Models</clr-dg-column>
+    <clr-dg-column>Parameters</clr-dg-column>
+    <clr-dg-column>Status</clr-dg-column>
+    <clr-dg-column>Action</clr-dg-column>
+
+    <clr-dg-row *ngFor="let upload of histories">
+      <clr-dg-cell>{{ upload.user }}</clr-dg-cell>
+      <clr-dg-cell>{{ upload.startDate }}</clr-dg-cell>
+      <clr-dg-cell>{{ upload.endDate }}</clr-dg-cell>
+      <clr-dg-cell>
+        <div>
+          <div>{{ upload.models.length }} models selected</div>
+          <button
+            (click)="showModel('Models List', upload.models)"
+            class="btn btn-primary btn-sm"
+            *ngIf="upload.models.length > 0"
+          >
+            Show them
+          </button>
+        </div>
+      </clr-dg-cell>
+      <clr-dg-cell>
+        <div>
+          <div>{{ upload.parameters }} parameters selected</div>
+          <button
+            (click)="showList('Parameters List', upload.parameters)"
+            class="btn btn-primary btn-sm"
+            *ngIf="(upload.parameters | keyvalue)?.length"
+          >
+            Show them
+          </button>
+        </div>
+      </clr-dg-cell>
+      <clr-dg-cell>
+        {{ upload.status }}
+      </clr-dg-cell>
+      <clr-dg-cell>
+        <button
+          (click)="download(upload)"
+          class="btn btn-primary btn-sm"
+          *ngIf="isAvailable(upload)"
+          [disabled]="upload.downloading"
+        >
+          <ng-container *ngIf="!upload.downloading; else loading">
+            <clr-icon shape="download"></clr-icon>
+            Download
+          </ng-container>
+        </button>
+        <button
+          (click)="goto(upload)"
+          class="btn btn-primary btn-sm"
+          *ngIf="isAvailable(upload)"
+          [disabled]="upload.downloading"
+        >
+          <ng-container *ngIf="!upload.downloading; else loading">
+            <clr-icon shape="download"></clr-icon>
+            New Export
+          </ng-container>
+        </button>
+      </clr-dg-cell>
+    </clr-dg-row>
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="10">
+        <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]">
+          items per page
+        </clr-dg-page-size>
+        {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of
+        {{ pagination.totalItems }} histories
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
+
+<div *ngIf="isModalOpen">
+  <div class="modal">
+    <div class="modal-dialog modal-sm" role="dialog" aria-hidden="true">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button
+            aria-label="Close"
+            class="close"
+            type="button"
+            (click)="closeModal()"
+          >
+            <clr-icon aria-hidden="true" shape="close"></clr-icon>
+          </button>
+          <h3 class="modal-title">{{ modalName }}</h3>
+        </div>
+        <div class="modal-body">
+          <ul *ngFor="let modalString of modalList">
+            <li>{{ modalString }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop" aria-hidden="true"></div>
+</div>
+
+<ng-template #loading>
+  <span class="spinner spinner-inline spinner-md"></span>
+  Loading...
+</ng-template>

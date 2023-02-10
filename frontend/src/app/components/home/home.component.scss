@@ -1,0 +1,22 @@
+@import '../../../shared/variable.scss';
+
+.homePage{
+    display: flex;
+    justify-content: space-around;
+
+    .icon{
+        display: flex;
+        justify-content: center;
+
+        clr-icon{
+            height: 150px !important;
+            width: 150px !important;
+            color: $color-primary-blue;
+        }
+    }
+
+    .card-footer{
+        display: flex;
+        justify-content: flex-end;
+    }
+}

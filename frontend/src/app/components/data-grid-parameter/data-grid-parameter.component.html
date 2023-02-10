@@ -1,0 +1,13 @@
+<clr-tree>
+  <clr-tree-node *ngFor="let parameter of parametersTree"
+                 [(clrSelected)]="parameter.selected"
+                 [clrExpanded]="false"
+                 (clrSelectedChange)="selectionChanged($event)">
+                {{parameter.name}}
+      <clr-tree-node *ngFor="let item of parameter.items"
+                  [(clrSelected)]="item.selected"
+                  (clrSelectedChange)="selectionChanged($event)">
+          {{item.name}}
+      </clr-tree-node>
+  </clr-tree-node>
+</clr-tree>

@@ -1,0 +1,20 @@
+<clr-datagrid
+  [(clrDgSelected)]="selected"
+  (clrDgSelectedChange)="selectionChanged($event)"
+>
+  <clr-dg-column [clrDgField]="'name'">Name</clr-dg-column>
+  <clr-dg-column>Identifior</clr-dg-column>
+  <clr-dg-row *clrDgItems="let model of models" [clrDgItem]="model">
+    <clr-dg-cell>{{ model.name }}</clr-dg-cell>
+    <clr-dg-cell>{{ model.id }}</clr-dg-cell>
+  </clr-dg-row>
+  <clr-dg-footer>
+    <clr-dg-pagination #pagination [clrDgPageSize]="10">
+      <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]"
+        >Vibrators per page</clr-dg-page-size
+      >
+      {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of
+      {{ pagination.totalItems }} vibrators
+    </clr-dg-pagination>
+  </clr-dg-footer>
+</clr-datagrid>

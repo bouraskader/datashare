@@ -1,0 +1,30 @@
+header{
+
+  .headerSection{
+    display: flex;
+    justify-content: center;
+
+    .headerTitle{
+      color: #fff;
+      margin: 0.5rem;
+    }
+
+    .logout{
+      margin: 0.7rem;
+    }
+
+  }
+}
+
+.logoSection{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+
+    .logoHeader{
+        margin-top: 1rem;
+        max-width: 10%;
+    }
+
+}
+

@@ -1,0 +1,31 @@
+@import '../../../shared/variable.scss';
+
+.dateSelect{
+    display: flex;
+    justify-content: space-around;
+
+    .titleDate{
+        margin-bottom: 1rem;
+    }
+
+    .resumeDate{
+        border: 2px solid $color-primary-blue;
+        margin-top: 24px;
+
+        h4{
+            margin-top: 0;
+        }
+
+        .resumeDateSelected{
+            padding-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+
+            .dateSelected{
+                font-weight: bold;
+            }
+            
+        }
+    }
+    
+}

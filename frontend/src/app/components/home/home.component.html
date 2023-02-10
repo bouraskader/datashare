@@ -1,0 +1,107 @@
+<div class="clr-row homePage">
+  <div class="clr-col-lg-5 clr-col-12">
+    <div class="card">
+      <div class="card-block">
+        <h3 class="card-title">Transfer Data</h3>
+        <p class="card-text">
+          Transfer data to the cloud. You can make a selection models and
+          parameters and choose between two methods of transfer.
+        </p>
+        <div class="icon">
+          <clr-icon shape="download"></clr-icon>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-primary" (click)="openWizard()">Start</button>
+      </div>
+    </div>
+  </div>
+  <div class="clr-col-lg-5 clr-col-12">
+    <div class="card">
+      <div class="card-block">
+        <h3 class="card-title">History</h3>
+        <p class="card-text">
+          Show the history of transfered data and allow to download file
+          generated when their are available.
+        </p>
+        <p></p>
+        <div class="icon">
+          <clr-icon shape="history"></clr-icon>
+        </div>
+      </div>
+      <div class="card-footer">
+        <a routerLink="/history"
+          ><button class="btn btn-primary">Show</button></a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<clr-wizard #wizard [(clrWizardOpen)]="lgOpen">
+  <clr-wizard-title>Data Transfer</clr-wizard-title>
+
+  <clr-wizard-button [type]="'cancel'">Cancel</clr-wizard-button>
+  <clr-wizard-button [type]="'previous'">Back</clr-wizard-button>
+  <clr-wizard-button [type]="'next'">Next</clr-wizard-button>
+
+  <clr-wizard-page
+    #modelPage
+    (clrWizardPageNext)="onNextModel()"
+    [clrWizardPageNextDisabled]="!requiredChoice"
+  >
+    <ng-template clrPageTitle>Choose models</ng-template>
+    <app-data-grid-model
+      (selectModels)="getSelectedModels($event)"
+      (listModels)="getListAllModels($event)"
+      [selectedList]="modelList"
+    ></app-data-grid-model>
+  </clr-wizard-page>
+
+  <clr-wizard-page
+    #parameterPage
+    (clrWizardPageNext)="onNextParameter()"
+  >
+    <ng-template clrPageTitle>Choose Parameters</ng-template>
+    <app-data-grid-parameter
+      (selectParameters)="getSelectedParameters($event)"
+      [selectedList]="parameterList"
+    ></app-data-grid-parameter>
+  </clr-wizard-page>
+
+  <clr-wizard-page
+    #datePage
+    (clrWizardPageNext)="onNextDate()"
+    [clrWizardPageNextDisabled]="!requiredChoice"
+  >
+    <ng-template clrPageTitle>Select Date</ng-template>
+    <app-date-selected
+      (onStartDateSelected)="getStartDate($event)"
+      (onEndDateSelected)="getEndDate($event)"
+      [selectedDate]="startDateNewExport"
+    ></app-date-selected>
+  </clr-wizard-page>
+  <clr-wizard-page>
+    <ng-template clrPageTitle>Choose Location</ng-template>
+    <app-location
+      [fileParameter]="fileParameter"
+      (openModal)="onModalOpen($event)"
+      (textModal)="onTestText($event)"
+    ></app-location>
+  </clr-wizard-page>
+</clr-wizard>
+
+<clr-modal [(clrModalOpen)]="isModalOpen" [clrModalClosable]="false">
+  <h3 class="modal-title">{{ modalTitle }}</h3>
+
+  <div class="modal-body textModal">
+    <p>{{ modalBody }}</p>
+  </div>
+
+  <div class="modal-footer">
+    <button (click)="closeModal()" class="btn btn-default">Close</button>
+    <a routerLink="/history"
+      ><button class="btn btn-primary">History</button></a
+    >
+  </div>
+</clr-modal>

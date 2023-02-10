@@ -1,0 +1,33 @@
+<div class="clr-row dateSelect">
+  <div class="clr-col-lg-2 clr-col-12">
+    <h4 class="titleDate">Start Date</h4>
+    <input
+      id="field_tStartdate"
+      type="datetime-local"
+      class="form-control"
+      max="{{ maxDate }}"
+      [ngModel]="tStartdate | date:'yyyy-MM-ddTHH:mm'"
+      (ngModelChange)="setDateStart($event)"
+    />
+  </div>
+  <div class="clr-col-lg-2 clr-col-12">
+    <h4 class="titleDate">End Date</h4>
+    <input
+      id="field_tEnddate"
+      type="datetime-local"
+      class="form-control"
+      min="{{ minDate }}"
+      max="{{ maxDate }}"
+      [ngModel]="tEnddate | date:'yyyy-MM-ddTHH:mm'"
+      (ngModelChange)="setDateEnd($event)"
+    />
+  </div>
+  <div class="clr-col-lg-5 clr-col-12 resumeDate">
+    <h4 class="titleResume">Date Selected</h4>
+    <div class="resumeDateSelected">
+      <div class="dateSelected">{{ startDateSelected | date:"short" }}</div>
+      <div>to</div>
+      <div class="dateSelected">{{ endDateSelected | date:"short" }}</div>
+    </div>
+  </div>
+</div>
